@@ -16,7 +16,7 @@
 
 BillionMail is a **future open-source Mail server, Email marketing platform** designed to help businesses and individuals manage their email campaigns with ease. Whether you're sending newsletters, promotional emails, or transactional messages, this tool will provide **full control** over your email marketing efforts. With features like **advanced analytics**, and **customer management**, you'll be able to create, send, and track emails like a pro.
 
-![Billion Mail Banner](https://www.billionmail.com/home.png?v1)
+![BillionMail Banner](https://www.billionmail.com/home.png?v1)
 
 ## How to use?
 **Install Script:** (✅The script automatically installs all required runtime environments including Docker)
@@ -80,15 +80,22 @@ Show domain DNS record
 
 `bm show-record`
 
+Update BillionMail
+```shell
+# Enter the project directory to execute the update script
+cd /opt/BillionMail
+
+bash update.sh
+```
 
 
 ## WebMail
 
-Billion Mail has integrated **RoundCube**, you can access WebMail via `/roundcube/`.
+BillionMail has integrated **RoundCube**, you can access WebMail via `/roundcube/`.
 
-## Why Billion Mail?
+## Why BillionMail?
 
-Most email marketing platforms are either **expensive**, **closed-source**, or **lack essential features**. Billion Mail aims to be different:
+Most email marketing platforms are either **expensive**, **closed-source**, or **lack essential features**. BillionMail aims to be different:
 
 ✅ **Fully Open-Source** – No hidden costs, no vendor lock-in.  
 📊 **Advanced Analytics** – Track email delivery, open rates, click-through rates, and more.  
@@ -99,16 +106,16 @@ Most email marketing platforms are either **expensive**, **closed-source**, or *
 
 ## How You Can Help 🌟
 
-Billion Mail is a **community-driven project**, and we need your support to get started! Here's how you can help:
+BillionMail is a **community-driven project**, and we need your support to get started! Here's how you can help:
 
 1. **Star This Repository**: Show your interest by starring this repo.  
-2. **Spread the Word**: Share Billion Mail with your network—developers, marketers, and open-source enthusiasts.  
-3. **Share Feedback**: Let us know what features you'd like to see in Billion Mail by opening an issue or joining the discussion.  
+2. **Spread the Word**: Share BillionMail with your network—developers, marketers, and open-source enthusiasts.  
+3. **Share Feedback**: Let us know what features you'd like to see in BillionMail by opening an issue or joining the discussion.  
 4. **Contribute**: Once development begins, we'll welcome contributions from the community. Stay tuned for updates!
 
 ---
 
-📧 **Billion Mail – The Future of Open-Source Email Marketing.**
+📧 **BillionMail – The Future of Open-Source Email Marketing.**
 
 ## Issues
 
@@ -120,7 +127,7 @@ If you encounter any issues or have feature requests, please [open an issue](htt
 
 ## License
 
-Billion Mail is licensed under the **AGPLv3 License**. This means you can:
+BillionMail is licensed under the **AGPLv3 License**. This means you can:
 
 ✅ Use the software for free.  
 ✅ Modify and distribute the code.  
@@ -130,7 +137,7 @@ See the [LICENSE](LICENSE) file for more details.
 
 ---
 
-📬 **Billion Mail – Coming Soon. Star This Repo to Make It Happen Faster!**
+📬 **BillionMail – Coming Soon. Star This Repo to Make It Happen Faster!**
 
 <!-- BillionMail official link -->
 [docs-link]: https://www.billionmail.com/

@@ -81,12 +81,7 @@ Show domain DNS record
 `bm show-record`
 
 Update BillionMail
-```shell
-# Enter the project directory to execute the update script
-cd /opt/BillionMail
-
-bash update.sh
-```
+`bm update`
 
 
 ## WebMail

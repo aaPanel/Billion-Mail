@@ -5,7 +5,7 @@ import zh from './lang/zh.json'
 const i18n = createI18n({
 	legacy: false,
 	globalInjection: true,
-	locale: 'zh',
+	locale: 'en',
 	fallbackLocale: 'en',
 	messages: {
 		en,

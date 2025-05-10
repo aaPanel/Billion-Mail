@@ -1,135 +1,149 @@
 <template>
 	<div class="task-edit-container">
-		<n-breadcrumb class="mb-20px">
-			<n-breadcrumb-item>
-				<router-link to="/market/task">{{ $t('market.task.title') }}</router-link>
-			</n-breadcrumb-item>
-			<n-breadcrumb-item>{{ $t('market.task.edit.addTitle') }}</n-breadcrumb-item>
-		</n-breadcrumb>
-		<div class="task-edit-box">
-			<bt-form ref="formRef" class="task-edit-form" :model="form" :rules="rules">
-				<n-card class="mb-24px">
-					<n-form-item :label="$t('market.task.edit.from')">
-						<from-select v-model:value="form.addresser" v-model:name="form.full_name"></from-select>
-					</n-form-item>
-					<n-form-item :label="$t('market.task.edit.displayName')" path="full_name">
-						<div class="w-360px">
-							<n-input
-								v-model:value="form.full_name"
-								:placeholder="$t('market.task.edit.displayNamePlaceholder')">
-							</n-input>
-						</div>
-					</n-form-item>
-					<n-form-item :label="$t('market.task.edit.subject')" path="subject">
-						<div class="w-360px">
-							<n-input
-								v-model:value="form.subject"
-								:placeholder="$t('market.task.edit.subjectPlaceholder')">
-							</n-input>
-						</div>
-					</n-form-item>
-					<n-form-item :label="$t('market.task.edit.recipients')" type="group_ids">
-						<group-select v-model:value="form.group_ids" v-model:label="groupNames"></group-select>
-					</n-form-item>
-					<n-form-item :label="$t('market.task.edit.template')" path="template_id">
-						<div class="w-260px">
-							<template-select v-model:value="form.template_id" v-model:content="templateContent">
-							</template-select>
-						</div>
-						<n-button text type="primary" class="ml-12px" @click="handleGoTemplate">
-							{{ t('common.actions.create') }}
-						</n-button>
-					</n-form-item>
-					<n-form-item v-if="false" :label="$t('market.task.edit.saveOutbox')">
-						<n-switch v-model:value="form.is_record" :checked-value="1" :unchecked-value="0">
-						</n-switch>
-					</n-form-item>
-					<n-form-item :label="$t('market.task.edit.unsubscribeLink')">
-						<n-switch v-model:value="form.unsubscribe" :checked-value="1" :unchecked-value="0">
-						</n-switch>
-						<!-- <n-button text type="primary" class="ml-16px" @click="handleViewCase">
+		<div class="flex flex-col flex-1 p-24px overflow-auto">
+			<n-breadcrumb class="mb-20px">
+				<n-breadcrumb-item>
+					<router-link to="/market/task">{{ $t('market.task.title') }}</router-link>
+				</n-breadcrumb-item>
+				<n-breadcrumb-item>{{ $t('market.task.edit.addTitle') }}</n-breadcrumb-item>
+			</n-breadcrumb>
+			<div class="task-edit-box" :style="{ minHeight: height + 'px' }">
+				<bt-form ref="formRef" class="task-edit-form" :model="form" :rules="rules">
+					<div ref="formContentRef">
+						<n-card class="mb-24px">
+							<n-form-item :label="$t('market.task.edit.from')">
+								<from-select
+									v-model:value="form.addresser"
+									v-model:name="form.full_name"></from-select>
+							</n-form-item>
+							<n-form-item :label="$t('market.task.edit.displayName')" path="full_name">
+								<div class="w-360px">
+									<n-input
+										v-model:value="form.full_name"
+										:placeholder="$t('market.task.edit.displayNamePlaceholder')">
+									</n-input>
+								</div>
+							</n-form-item>
+							<n-form-item :label="$t('market.task.edit.subject')" path="subject">
+								<div class="w-360px">
+									<n-input
+										v-model:value="form.subject"
+										:placeholder="$t('market.task.edit.subjectPlaceholder')">
+									</n-input>
+								</div>
+							</n-form-item>
+							<n-form-item :label="$t('market.task.edit.recipients')" type="group_ids">
+								<group-select
+									v-model:value="form.group_ids"
+									v-model:label="groupNames"></group-select>
+							</n-form-item>
+							<n-form-item :label="$t('market.task.edit.template')" path="template_id">
+								<div class="w-260px">
+									<template-select
+										v-model:value="form.template_id"
+										v-model:content="templateContent">
+									</template-select>
+								</div>
+								<n-button text type="primary" class="ml-12px" @click="handleGoTemplate">
+									{{ t('common.actions.create') }}
+								</n-button>
+							</n-form-item>
+							<n-form-item v-if="false" :label="$t('market.task.edit.saveOutbox')">
+								<n-switch v-model:value="form.is_record" :checked-value="1" :unchecked-value="0">
+								</n-switch>
+							</n-form-item>
+							<n-form-item :label="$t('market.task.edit.unsubscribeLink')">
+								<n-switch v-model:value="form.unsubscribe" :checked-value="1" :unchecked-value="0">
+								</n-switch>
+								<!-- <n-button text type="primary" class="ml-16px" @click="handleViewCase">
 							{{ t('market.task.edit.viewCase') }}
 						</n-button> -->
-					</n-form-item>
-					<n-form-item :label="$t('market.task.edit.threads')" :show-feedback="false">
-						<n-radio-group v-model:value="threadsType" @update:value="handleUpdateThread">
-							<n-radio :value="0">
-								{{ $t('market.task.edit.threadsAuto') }}
-							</n-radio>
-							<n-radio :value="1">
-								{{ $t('market.task.edit.threadsCustom') }}
-							</n-radio>
-						</n-radio-group>
-						<div v-show="threadsType === 1" class="w-60px">
-							<n-input-number v-model:value="form.threads" :min="1" :max="100" :show-button="false">
-							</n-input-number>
-						</div>
-					</n-form-item>
-				</n-card>
-				<n-card>
-					<n-form-item label="Send time" path="start_time">
-						<n-radio-group
-							v-model:value="sendTimeType"
-							class="flex items-center"
-							@update:value="handleUpdateSend">
-							<n-radio :value="0">Send Now</n-radio>
-							<n-radio class="items-center" :value="1"> </n-radio>
-							<n-date-picker
-								v-model:value="form.start_time"
-								class="ml-8px"
-								type="datetime"
-								:disabled="sendTimeType === 0">
-							</n-date-picker>
-						</n-radio-group>
-					</n-form-item>
-					<n-form-item :label="$t('market.task.edit.remark')">
-						<div class="w-360px">
-							<n-input
-								v-model:value="form.remark"
-								:placeholder="$t('market.task.edit.remarkPlaceholder')">
-							</n-input>
-						</div>
-					</n-form-item>
-					<n-form-item :label="$t('market.task.edit.testEmail')" :show-feedback="false">
-						<div class="flex w-360px">
-							<div class="flex-1 mr-10px">
-								<n-input
-									v-model:value="testEmail"
-									:placeholder="$t('market.task.edit.testEmailPlaceholder')">
-								</n-input>
-							</div>
-							<n-button @click="handleSendTest">
-								{{ $t('market.task.edit.sendTest') }}
-							</n-button>
-						</div>
-					</n-form-item>
-				</n-card>
-			</bt-form>
-			<div class="task-preview">
-				<n-card
-					class="h-full"
-					:content-style="{ display: 'flex', flexDirection: 'column', height: '100%' }">
-					<div class="preview-header">
-						<div class="preview-header-item">
-							<div class="preview-label">{{ t('market.task.edit.from') }}:</div>
-							<div class="preview-value">{{ form.addresser }}</div>
-						</div>
-						<div class="preview-header-item">
-							<div class="preview-label">{{ t('market.task.edit.to') }}:</div>
-							<div class="preview-value">
-								{{ groupNames.length > 0 ? groupNames.join(', ') : '--' }}
-							</div>
-						</div>
-						<div class="preview-header-item">
-							<div class="preview-label">{{ t('market.task.edit.subject') }}:</div>
-							<div class="preview-value">{{ form.subject || '--' }}</div>
-						</div>
+							</n-form-item>
+							<n-form-item :label="$t('market.task.edit.threads')" :show-feedback="false">
+								<n-radio-group v-model:value="threadsType" @update:value="handleUpdateThread">
+									<n-radio :value="0">
+										{{ $t('market.task.edit.threadsAuto') }}
+									</n-radio>
+									<n-radio :value="1">
+										{{ $t('market.task.edit.threadsCustom') }}
+									</n-radio>
+								</n-radio-group>
+								<div v-show="threadsType === 1" class="w-60px">
+									<n-input-number
+										v-model:value="form.threads"
+										:min="1"
+										:max="100"
+										:show-button="false">
+									</n-input-number>
+								</div>
+							</n-form-item>
+						</n-card>
+						<n-card>
+							<n-form-item label="Send time" path="start_time">
+								<n-radio-group
+									v-model:value="sendTimeType"
+									class="flex items-center"
+									@update:value="handleUpdateSend">
+									<n-radio :value="0">Send Now</n-radio>
+									<n-radio class="items-center" :value="1"> </n-radio>
+									<n-date-picker
+										v-model:value="form.start_time"
+										class="ml-8px"
+										type="datetime"
+										:disabled="sendTimeType === 0">
+									</n-date-picker>
+								</n-radio-group>
+							</n-form-item>
+							<n-form-item :label="$t('market.task.edit.remark')">
+								<div class="w-360px">
+									<n-input
+										v-model:value="form.remark"
+										:placeholder="$t('market.task.edit.remarkPlaceholder')">
+									</n-input>
+								</div>
+							</n-form-item>
+							<n-form-item :label="$t('market.task.edit.testEmail')" :show-feedback="false">
+								<div class="flex w-360px">
+									<div class="flex-1 mr-10px">
+										<n-input
+											v-model:value="testEmail"
+											:placeholder="$t('market.task.edit.testEmailPlaceholder')">
+										</n-input>
+									</div>
+									<n-button @click="handleSendTest">
+										{{ $t('market.task.edit.sendTest') }}
+									</n-button>
+								</div>
+							</n-form-item>
+						</n-card>
 					</div>
-					<div class="preview-content">
-						<bt-preview v-if="templateContent" :value="templateContent" />
-						<div v-else class="empty-preview">{{ t('market.task.edit.preview.empty') }}</div>
-					</div>
-				</n-card>
+				</bt-form>
+				<div class="task-preview">
+					<n-card
+						class="h-full"
+						:content-style="{ display: 'flex', flexDirection: 'column', height: '100%' }">
+						<div class="preview-header">
+							<div class="preview-header-item">
+								<div class="preview-label">{{ t('market.task.edit.from') }}:</div>
+								<div class="preview-value">{{ form.addresser }}</div>
+							</div>
+							<div class="preview-header-item">
+								<div class="preview-label">{{ t('market.task.edit.to') }}:</div>
+								<div class="preview-value">
+									{{ groupNames.length > 0 ? groupNames.join(', ') : '--' }}
+								</div>
+							</div>
+							<div class="preview-header-item">
+								<div class="preview-label">{{ t('market.task.edit.subject') }}:</div>
+								<div class="preview-value">{{ form.subject || '--' }}</div>
+							</div>
+						</div>
+						<div class="preview-content">
+							<bt-preview v-if="templateContent" :value="templateContent" />
+							<div v-else class="empty-preview">{{ t('market.task.edit.preview.empty') }}</div>
+						</div>
+					</n-card>
+				</div>
 			</div>
 		</div>
 		<!-- Action buttons -->
@@ -146,6 +160,7 @@
 
 <script lang="ts" setup>
 import { FormRules } from 'naive-ui'
+import { useElementBounding } from '@vueuse/core'
 import { confirm, Message } from '@/utils'
 import { addTask, sendTestEmail } from '@/api/modules/market/task'
 
@@ -158,6 +173,10 @@ const { t } = useI18n()
 const router = useRouter()
 
 const formRef = useTemplateRef('formRef')
+
+const formContentRef = useTemplateRef('formContentRef')
+
+const { height } = useElementBounding(formContentRef)
 
 // 表单数据
 const form = reactive({
@@ -328,9 +347,8 @@ const handleSubmit = async () => {
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	padding: 24px;
-	padding-bottom: 106px;
 	height: 100%;
+	overflow: hidden;
 
 	.task-edit-box {
 		flex: 1;
@@ -345,6 +363,7 @@ const handleSubmit = async () => {
 
 	.task-preview {
 		flex: 1;
+		overflow: hidden;
 
 		.preview-header {
 			width: 420px;
@@ -386,9 +405,6 @@ const handleSubmit = async () => {
 }
 
 .action-buttons {
-	position: absolute;
-	left: 0;
-	bottom: 0;
 	width: 100%;
 	padding: 23px 24px;
 	background-color: #fff;

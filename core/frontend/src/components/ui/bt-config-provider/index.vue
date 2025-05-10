@@ -10,11 +10,33 @@
 </template>
 
 <script lang="ts" setup>
-import { enUS, dateEnUS } from 'naive-ui'
+import { storeToRefs } from 'pinia'
+import { enUS, zhCN, dateEnUS, dateZhCN } from 'naive-ui'
+import { useGlobalStore } from '@/store'
 
-const locale = ref(enUS)
+const globalStore = useGlobalStore()
+const { lang } = storeToRefs(globalStore)
 
-const dateLocale = ref(dateEnUS)
+const langMap = {
+	zh: {
+		locale: zhCN,
+		dateLocale: dateZhCN,
+	},
+	en: {
+		locale: enUS,
+		dateLocale: dateEnUS,
+	},
+}
+
+const locale = computed(() => {
+	const langObj = langMap[lang.value as keyof typeof langMap]
+	return langObj.locale
+})
+
+const dateLocale = computed(() => {
+	const langObj = langMap[lang.value as keyof typeof langMap]
+	return langObj.dateLocale
+})
 
 const themeOverrides = {
 	common: {

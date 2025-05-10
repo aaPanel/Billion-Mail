@@ -7,7 +7,7 @@
 		</div>
 
 		<div class="header-right">
-			<n-dropdown :options="langOptions" @select="handleLangAction">
+			<n-dropdown v-if="langOptions.length > 0" :options="langOptions" @select="handleLangAction">
 				<n-button class="icon-btn" :bordered="false">
 					<i class="icon i-mdi-language text-20px"></i>
 				</n-button>

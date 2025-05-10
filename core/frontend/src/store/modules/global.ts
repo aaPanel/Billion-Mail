@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { isObject } from '@/utils'
-import { setLanguage } from '@/i18n'
 import { getLanguages, setLanguage as setLanguageApi } from '@/api/modules/public'
 
 interface LangResponse {
@@ -31,8 +30,6 @@ export default defineStore('GlobalStore', () => {
 
 	const setLang = async (language: string) => {
 		await setLanguageApi({ language })
-		setLanguage(language)
-		lang.value = language
 	}
 
 	return {

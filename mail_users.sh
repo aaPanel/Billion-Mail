@@ -366,6 +366,26 @@ Del_Email() {
     fi
 }
 
+Update_BillionMail() {
+    BRANCH="main"
+    if [ -f "update.sh" ]; then
+        echo -e "Checking for update.sh script..."
+        MD5_1="$(md5sum update.sh)"
+        git fetch origin
+        git checkout "origin/${BRANCH}" update.sh
+        MD5_2=$(md5sum update.sh)
+        if [[ "${MD5_1}" != "${MD5_2}" ]]; then
+            #echo -e "\033[33m update.sh is changed, please run update.sh script again.\033[0m"
+            chmod +x update.sh
+            echo y | ./update.sh
+            #exit 1
+        else
+            chmod +x update.sh
+            echo y | ./update.sh
+        fi
+    fi
+}
+
 
 Default_info() {
 
@@ -403,41 +423,41 @@ Default_info() {
 
     LOCAL_IP=$(ip addr | grep -E -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -E -v "^127\.|^255\.|^0\." | head -n 1)
     echo -e "=================================================================="
-    echo -e "\033[32mBillion Mail default info!\033[0m"
+    echo -e "\033[32mBillionMail default info!\033[0m"
     echo -e "=================================================================="
     pool=https
     if [ "${ipv6_address}" ];then
         if [ "${HTTPS_PORT}" = "443" ];then
-            echo  "Billion Mail Internet IPv6 Address: ${pool}://${ipv6_address}/${SafePath}"
+            echo  "BillionMail Internet IPv6 Address: ${pool}://${ipv6_address}/${SafePath}"
         else
-            echo  "Billion Mail Internet IPv6 Address: ${pool}://${ipv6_address}:${HTTPS_PORT}/${SafePath}"
+            echo  "BillionMail Internet IPv6 Address: ${pool}://${ipv6_address}:${HTTPS_PORT}/${SafePath}"
         fi
     fi
     if [ "${ipv4_address}" ];then
         if [ "${HTTPS_PORT}" = "443" ];then
-            echo  "Billion Mail Internet IPv4 Address: ${pool}://${ipv4_address}/${SafePath}"
+            echo  "BillionMail Internet IPv4 Address: ${pool}://${ipv4_address}/${SafePath}"
         else
-            echo  "Billion Mail Internet IPv4 Address: ${pool}://${ipv4_address}:${HTTPS_PORT}/${SafePath}"
+            echo  "BillionMail Internet IPv4 Address: ${pool}://${ipv4_address}:${HTTPS_PORT}/${SafePath}"
         fi
     fi
     if [ "${address}" ];then
         if [ "${HTTPS_PORT}" = "443" ];then
-            echo  "Billion Mail Internet Address: ${pool}://${address}/${SafePath}"
+            echo  "BillionMail Internet Address: ${pool}://${address}/${SafePath}"
         else
-            echo  "Billion Mail Internet Address: ${pool}://${address}:${HTTPS_PORT}/${SafePath}"
+            echo  "BillionMail Internet Address: ${pool}://${address}:${HTTPS_PORT}/${SafePath}"
         fi
 
     fi
 
     if [ "${HTTPS_PORT}" = "443" ];then
-        echo  "Billion Mail Internal Address:      ${pool}://${LOCAL_IP}/${SafePath}"
+        echo  "BillionMail Internal Address:      ${pool}://${LOCAL_IP}/${SafePath}"
     else
-        echo  "Billion Mail Internal Address:      ${pool}://${LOCAL_IP}:${HTTPS_PORT}${SafePath}"
+        echo  "BillionMail Internal Address:      ${pool}://${LOCAL_IP}:${HTTPS_PORT}${SafePath}"
     fi
     
     echo -e "Username: ${ADMIN_USERNAME} \nPassword: ${ADMIN_PASSWORD}"
     echo -e "\033[33mWarning:\033[0m"
-    echo -e "\033[33mIf you cannot access the Billion Mail, \033[0m"
+    echo -e "\033[33mIf you cannot access the BillionMail, \033[0m"
     echo -e "\033[33mrelease the following port ${SMTP_PORT}|${SMTPS_PORT}|${SUBMISSION_PORT}|${POP_PORT}|${IMAP_PORT}|${IMAPS_PORT}|${POPS_PORT}|${HTTP_PORT}|${HTTPS_PORT} in the security group\033[0m"
     echo -e "=================================================================="
 }
@@ -446,7 +466,8 @@ Default_info() {
 case "$1" in
     h | -h | help | --help | -help)
         echo "Help Information:"
-        echo "  default                - Show Billion Mail login default info: $0 default"
+        echo "  default                - Show BillionMail login default info: $0 default"
+        echo "  update                 - Update BillionMail: $0 update"
         echo "  add-domain <domain>    - Add domain. Example: $0 add-domain example.com"
         echo "  del-domain <domain>    - Delete domain. Example: $0 del-domain example.com"
         echo "  add-email <email>      - Add email. Example: $0 add-email user@example.com"
@@ -457,6 +478,9 @@ case "$1" in
         ;;
     default | info)
         Default_info
+        ;;
+    update)
+        Update_BillionMail
         ;;
     add-domain)
         Init_Domain "$@"
@@ -485,7 +509,7 @@ case "$1" in
         Domain_record
         ;;
     *)
-        echo "Usage: $0 {default|add-domain|del-domain|add-email|del-email|show-domain|show-email|show-record|help}"
+        echo "Usage: $0 {default|update|add-domain|del-domain|add-email|del-email|show-domain|show-email|show-record|help}"
         exit 1
         ;;
 esac

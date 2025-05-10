@@ -779,60 +779,72 @@ func GetLanguageList() []map[string]interface{} {
 
 // Get language from context
 func GetLanguageFromCtx(ctx context.Context) string {
-	defaultLanguage := ""
-
 	r := g.RequestFromCtx(ctx)
 	if r == nil {
-		val, err := g.DB().Model("bm_options").
-			Where("name", "CurrentLanguage").
-			Value("value")
-
-		if err == nil && val != nil && val.String() != "" {
-			defaultLanguage = val.String()
-		}
-
-		return defaultLanguage
+		return getDefaultLanguageFromDB("en")
 	}
 
-	// Get language from lang parameter
-	lang := r.Get("lang").String()
-	if lang != "" {
-		lang = strings.ToLower(lang)
-		defaultLanguage = strings.Split(lang, "-")[0]
-		r.Session.Set("language", defaultLanguage)
-	} else {
+	// 1. URL
+	if lang := r.Get("lang").String(); lang != "" {
+		cleanLang := strings.ToLower(strings.Split(lang, "-")[0])
+		r.Session.Set("language", cleanLang)
+		return cleanLang
+	}
 
-		language, err := r.Session.Get("language")
-		if err == nil && !language.IsEmpty() {
-			return language.String()
-		}
+	// 2. Session
+	if language, err := r.Session.Get("language"); err == nil && !language.IsEmpty() {
+		return language.String()
+	}
 
-		// Get from cache
-		langCache := GetCache("language")
-		if langCache != nil {
-			defaultLanguage = langCache.(string)
-		} else {
-			// Get from request header
-			lang := r.Header.Get("Accept-Language")
-			if lang != "" {
-				lang = strings.ToLower(lang)
-				defaultLanguage = strings.Split(lang, ",")[0]
-				defaultLanguage = strings.Split(defaultLanguage, "-")[0]
+	// 3. Cache
+	if langCache := GetCache("language"); langCache != nil {
+		return langCache.(string)
+	}
 
-			} else {
-				// Get from database
-				val, err := g.DB().Model("bm_options").
+	// 4. DB
+	if dbLang := getDefaultLanguageFromDB(""); dbLang != "" {
+		return dbLang
+	}
+
+	// 5. Accept
+	acceptLang := r.Header.Get("Accept-Language")
+	if acceptLang != "" {
+
+		browserLang := strings.ToLower(strings.Split(acceptLang, ",")[0])
+		browserLang = strings.Split(browserLang, "-")[0]
+
+		// check if the language is supported
+		languages := GetLanguageList()
+		for _, v := range languages {
+			if v["name"] == browserLang {
+				// save to db
+				_, err := g.DB().Model("bm_options").
 					Where("name", "CurrentLanguage").
-					Value("value")
+					Data(g.Map{"value": browserLang}).
+					Save()
 
-				if err == nil && val != nil && val.String() != "" {
-					defaultLanguage = val.String()
+				if err == nil {
+					SetCache("language", browserLang, 3600)
+					return browserLang
 				}
+				break
 			}
 		}
 	}
 
-	return defaultLanguage
+	return "en"
+}
+
+func getDefaultLanguageFromDB(defaultValue string) string {
+	val, err := g.DB().Model("bm_options").
+		Where("name", "CurrentLanguage").
+		Value("value")
+
+	if err == nil && val != nil && val.String() != "" {
+		return val.String()
+	}
+
+	return defaultValue
 }
 
 // Replace language pack format variables

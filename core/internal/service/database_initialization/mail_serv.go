@@ -49,6 +49,18 @@ func init() {
 				PRIMARY KEY (address)
 			)`,
 
+			`--  bm_bcc 
+			CREATE TABLE IF NOT EXISTS bm_bcc (
+				id SERIAL PRIMARY KEY,
+				type TEXT NOT NULL, -- 'sender' or 'recipient'
+				address TEXT NOT NULL,
+				goto TEXT NOT NULL,
+				domain varchar(255) NOT NULL,
+				create_time int NOT NULL default 0,
+				update_time int NOT NULL default 0,
+				active smallint NOT NULL DEFAULT 1
+			)`,
+
 			`--  alias_domain 
 			CREATE TABLE IF NOT EXISTS alias_domain (
 				alias_domain varchar(255) NOT NULL, 

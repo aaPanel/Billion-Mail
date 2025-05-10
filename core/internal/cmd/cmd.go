@@ -11,6 +11,7 @@ import (
 	"billionmail-core/internal/controller/files"
 	"billionmail-core/internal/controller/languages"
 	"billionmail-core/internal/controller/mail_boxes"
+	"billionmail-core/internal/controller/mail_services"
 	"billionmail-core/internal/controller/overview"
 	"billionmail-core/internal/controller/rbac"
 	"billionmail-core/internal/service/database_initialization"
@@ -182,6 +183,7 @@ var (
 					files.NewV1(),
 					abnormal_recipient.NewV1(),
 					languages.NewV1(),
+					mail_services.NewV1(),
 				)
 			})
 

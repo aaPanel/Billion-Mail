@@ -18,13 +18,13 @@ if [ $(whoami) != "root" ];then
 fi
 
 PWD_d=`pwd`
-# Check if the path contains "Billion-Mail"
-if [[ "${PWD_d}" != *"Billion-Mail"* ]]; then
+# Check if the path contains "BillionMail"
+if [[ "${PWD_d}" != *"BillionMail"* ]] || [[ "${PWD_d}" != *"Billion-Mail"* ]]; then
     if [ -f "/opt/PWD-Billion-Mail.txt" ]; then
         DIR=$(cat /opt/PWD-Billion-Mail.txt)
         if [ -d "${DIR}" ]; then
             cd "${DIR}"
-            echo "Enter the Billion-Mail project directory: ${DIR}"
+            echo "Enter the BillionMail project directory: ${DIR}"
         fi
     fi
 fi
@@ -32,7 +32,7 @@ fi
 
 if [ ! -s ".env" ]; then
     ls -al
-    echo " The .env file does not exist. Cannot continue operation, please operate in the Billion-Mail project directory"
+    echo " The .env file does not exist. Cannot continue operation, please operate in the BillionMail project directory"
     exit 1
 fi
 . .env

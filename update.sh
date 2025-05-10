@@ -40,7 +40,7 @@ while [ ${#} -gt 0 ]; do
         -h|--help)
             echo "Usage:  [options]"
             echo "Options:"
-            echo "  --ours       Use merge strategy option "ours" to resolve conflicts in favor of non-Billion-Mail code (local changes override remote changes)."
+            echo "  --ours       Use merge strategy option "ours" to resolve conflicts in favor of non-BillionMail code (local changes override remote changes)."
             exit 0
             ;;
         --ours)
@@ -71,7 +71,7 @@ GetSysInfo(){
     echo -e ${SYS_VERSION}
     echo -e Bit:${SYS_BIT} Mem:${MEM_TOTAL}M Core:${CPU_INFO}
     echo -e ${SYS_INFO}
-    echo -e "Please screenshot the above error message and post to the https://github.com/aaPanel/Billion-Mail/issues for help"
+    echo -e "Please screenshot the above error message and post to the https://github.com/aaPanel/BillionMail/issues for help"
 
 }
 

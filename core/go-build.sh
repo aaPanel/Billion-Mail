@@ -1,7 +1,7 @@
 # !/bin/sh
 
 # How to use:
-# cd /opt/Billion-Mail
+# cd /opt/BillionMail
 # docker run -d --name p-g-alpine --hostname p-g-alpine --restart=always -v ./core:/opt/core -v ./Dockerfiles/core/repositories:/etc/apk/repositories alpine:3.20 tail -f /dev/null
 # docker exec -it p-g-alpine sh
 # cd /opt/core

@@ -36,7 +36,7 @@ bash install.sh
 cd /opt
 git clone https://github.com/aaPanel/BillionMail
 
-# Enter the Billion-Mail directory and copy the file
+# Enter the BillionMail directory and copy the file
 cd BillionMail
 cp env_init .env
 
@@ -47,7 +47,7 @@ cp env_init .env
 mkdir ssl
 cp -d -n ssl-self-signed/* ssl/
 
-# Start Billion-Mail
+# Start BillionMail
 docker compose up -d || docker-compose up -d
 
 # Generate bm command
@@ -112,7 +112,7 @@ Billion Mail is a **community-driven project**, and we need your support to get 
 
 ## Issues
 
-If you encounter any issues or have feature requests, please [open an issue](https://github.com/your-username/billion-mail/issues). Be sure to include:
+If you encounter any issues or have feature requests, please [open an issue](https://github.com/aaPanel/BillionMail/issues). Be sure to include:
 
 - A clear description of the problem or request.
 - Steps to reproduce the issue (if applicable).

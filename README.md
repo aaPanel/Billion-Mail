@@ -84,14 +84,6 @@ chmod +x $(pwd)/mail_users.sh
 
   `bm update`
 
-  or 
-
-  ```shell
-    # Enter the project directory to execute the update script
-    cd /opt/BillionMail
-    bash update.sh
-  ```
-
 
 ## WebMail
 

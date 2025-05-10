@@ -24,7 +24,7 @@ fi
 
 if [ ! -s ".env" ]; then
     ls -al
-    echo " The .env file does not exist. Please check whether Billion Mail is installed? Please operate in the project directory."
+    echo " The .env file does not exist. Please check whether BillionMail is installed? Please operate in the project directory."
     exit 1
 fi
 
@@ -207,7 +207,7 @@ Update_BillionMail(){
         fi
     fi
 
-    echo -e "Stop Billion Mail, please wait..."
+    echo -e "Stop BillionMail, please wait..."
     sleep 3
     ${DOCKER_COMPOSE} down
 
@@ -267,7 +267,7 @@ Update_BillionMail(){
     echo -e "Getting the latest image, please wait..."
     ${DOCKER_COMPOSE} pull
 
-    echo -e "Starting Billion Mail, please wait..."
+    echo -e "Starting BillionMail, please wait..."
     ${DOCKER_COMPOSE} up -d
     if [ $? -eq 0 ]; then
         echo -e "\033[32m✅ Started successfully, update completed.\033[0m"
@@ -285,7 +285,7 @@ Update_BillionMail(){
 
 echo "
 +-----------------------------------------------------------------------------
-| You are updating Billion Mail. This operation will pull the latest code from 
+| You are updating BillionMail. This operation will pull the latest code from 
 | GitHub's main branch and rebuild the containers.
 |
 | If you have made any modifications, please back them up first. 
@@ -294,7 +294,7 @@ echo "
 "
 
 while [ "$go" != 'y' ] && [ "$go" != 'n' ]; do
-	read -p "Are you sure want to update Billion Mail. All containers will be stopped? (y/n): " go;
+	read -p "Are you sure want to update BillionMail. All containers will be stopped? (y/n): " go;
 done
 
 if [ "$go" == 'n' ];then

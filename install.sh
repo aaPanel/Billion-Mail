@@ -1253,7 +1253,7 @@ Init_Billionmail()
 
 Billionmail(){
     cat << EOF > billionmail.conf
-# Default Billion Mail Username password
+# Default BillionMail Username password
 ADMIN_USERNAME=${ADMIN_USERNAME}
 ADMIN_PASSWORD=${ADMIN_PASSWORD}
 
@@ -1392,8 +1392,8 @@ else
 fi
 echo -e "Webmail Username(e-mail): \e[1;33m${mailbox}@${BILLIONMAIL_HOSTNAME}\e[0m Password: \e[1;33m${Generate_mailbox_password}\e[0m"
 echo -e ""
-echo -e "Billion Mail address: \e[1;33mhttps://${IPV4_ADDRESS}/${SafePath}\e[0m"
-echo -e "Billion Mail Username: \e[1;33m${ADMIN_USERNAME}\e[0m Password: \e[1;33m${ADMIN_PASSWORD}\e[0m"
+echo -e "BillionMail address: \e[1;33mhttps://${IPV4_ADDRESS}/${SafePath}\e[0m"
+echo -e "BillionMail Username: \e[1;33m${ADMIN_USERNAME}\e[0m Password: \e[1;33m${ADMIN_PASSWORD}\e[0m"
 echo -e ""
 echo -e "Tip: Use \e[33m bm \e[0m or \e[33mbash mail_users.sh\e[0m to Add Domain and login info etc."
 

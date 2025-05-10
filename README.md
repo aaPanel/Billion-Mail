@@ -81,6 +81,7 @@ Show domain DNS record
 `bm show-record`
 
 Update BillionMail
+
 `bm update`
 
 

@@ -22,8 +22,8 @@ BillionMail is a **future open-source Mail server, Email marketing platform** de
 **Install Script:** (✅The script automatically installs all required runtime environments including Docker)
 ```shell
 cd /opt
-git clone https://github.com/aaPanel/Billion-Mail
-cd Billion-Mail
+git clone https://github.com/aaPanel/BillionMail
+cd BillionMail
 
 # install with interact
 bash install.sh
@@ -34,10 +34,10 @@ bash install.sh
 ```shell
 # Navigate to /opt and clone the repository
 cd /opt
-git clone https://github.com/aaPanel/Billion-Mail
+git clone https://github.com/aaPanel/BillionMail
 
 # Enter the Billion-Mail directory and copy the file
-cd Billion-Mail
+cd BillionMail
 cp env_init .env
 
 # Modify the default BILLIONMAIL_HOSTNAME value to your domain, e.g., mail.domain.com
@@ -137,12 +137,12 @@ See the [LICENSE](LICENSE) file for more details.
 
 <!-- BillionMail Other link-->
 [license-link]: https://www.gnu.org/licenses/gpl-3.0.html
-[github-release-link]: https://github.com/aaPanel/Billion-Mail/releases/latest
-[github-stars-link]: https://github.com/aaPanel/Billion-Mail
-[github-issues-link]: https://github.com/aaPanel/Billion-Mail/issues
+[github-release-link]: https://github.com/aaPanel/BillionMail/releases/latest
+[github-stars-link]: https://github.com/aaPanel/BillionMail
+[github-issues-link]: https://github.com/aaPanel/BillionMail/issues
 
 <!-- Shield link-->
 [docs-shield]: https://img.shields.io/badge/documentation-148F76
-[github-release-shield]: https://img.shields.io/github/v/release/aaPanel/Billion-Mail
-[github-stars-shield]: https://img.shields.io/github/stars/aaPanel/Billion-Mail?color=%231890FF&style=flat-square   
-[license-shield]: https://img.shields.io/github/license/aaPanel/Billion-Mail
+[github-release-shield]: https://img.shields.io/github/v/release/aaPanel/BillionMail
+[github-stars-shield]: https://img.shields.io/github/stars/aaPanel/BillionMail?color=%231890FF&style=flat-square   
+[license-shield]: https://img.shields.io/github/license/aaPanel/BillionMail

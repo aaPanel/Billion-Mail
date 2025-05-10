@@ -68,21 +68,29 @@ chmod +x $(pwd)/mail_users.sh
 
 
 ## Management script
-Management help
+- Management help
 
-`bm help`
+  `bm help`
 
-View Login default info
+- View Login default info
 
-`bm default`
+  `bm default`
 
-Show domain DNS record
+- Show domain DNS record
 
-`bm show-record`
+  `bm show-record`
 
-Update BillionMail
+- Update BillionMail
 
-`bm update`
+  `bm update`
+
+  or 
+
+  ```shell
+    # Enter the project directory to execute the update script
+    cd /opt/BillionMail
+    bash update.sh
+  ```
 
 
 ## WebMail

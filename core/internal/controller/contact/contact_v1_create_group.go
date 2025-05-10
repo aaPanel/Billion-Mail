@@ -56,9 +56,8 @@ func (c *ControllerV1) CreateGroup(ctx context.Context, req *v1.CreateGroupReq) 
 	// if type 2 or 3, need to handle file import
 	if req.CreateType == 2 || req.CreateType == 3 {
 		if req.FileData == "" {
-			//res.Code = 400
-			//res.SetError(gerror.New(public.LangCtx(ctx, "File content cannot be empty")))
-			res.SetSuccess(public.LangCtx(ctx, "Group created successfully"))
+			res.Code = 400
+			res.SetError(gerror.New(public.LangCtx(ctx, "File content cannot be empty")))
 			return
 		}
 
